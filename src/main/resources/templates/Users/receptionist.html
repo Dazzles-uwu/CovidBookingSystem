@@ -1,0 +1,70 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <title tiles:fragment="title">Messages : Create</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/booking-active}"
+      method="get">
+  <p>  <input type="submit" value=" View All Bookings"> </p>
+  <p><input type="hidden" name="receptionistTestSite"  th:value="${onSiteLocation.id}"/></p>
+
+</form>
+
+<p>Onsite Booking </p>
+<p th:text="'Test site location: ' + ${onSiteLocation.name}"/>
+<p> Book on behalf of a customer:</p>
+<form action="#" data-th-action="@{/book/onsite}" data-th-object="${booking}" method="post">
+  <p>Customer ID: <input type="text" th:field="*{customerId}" /></p>
+  <p th:text="'Test site ID: ' + ${onSiteLocation.id}"/>
+  <label>Date Time: </label><input type="datetime-local" th:field="*{startTime}"/>
+  <p>Notes: <input type="text" th:field="*{notes}" /></p>
+  <button type="submit" name="action" value="receptionist">Book</button>
+</form>
+
+<div th:if="${hasBookedSuccessfully == 'true'}" >
+  <p>Booked successfully, sms pin has been sent.</p>
+
+</div>
+
+<div th:if="${hasBookedSuccessfully == 'false'}" >
+  <p>Unable to book, please try again</p>
+
+</div>
+
+
+<p>Verify Patient's QR Code</p>
+<form action="#" data-th-action="@{/verify-qr}" data-th-object="${booking}" method="post">
+  <p>QR Code: <input type="text" name="qrCode" /></p>
+<!--  <p>QR Code: <input type="text" th:field="*{smsPin}" name="test123" /></p>-->
+  <button type="submit" name="action" value="receptionist">Verify</button>
+</form>
+
+<div th:if!="${checkQRStatus}" >
+  <p th:text="${qrStatus}"/>
+</div>
+
+<div th:if="${checkQRStatus}" >
+<!--  <p th:text="${qrStatus}"/>-->
+
+  <form action="#" data-th-action="@{/confirm-qr}" data-th-object="${booking}" method="post" >
+      <p> <input type="text" th:value="${bookingIdSaved}" name="bookingID"  hidden="hidden" /></p>
+    <button type="submit" name="action" value="receptionist">Confirm KIT has been collected</button>
+  </form>
+
+</div>
+
+<div th:if="${ifConfirmQrStatus}" >
+  <p th:text="${confirmQrStatus}"/>
+</div>
+
+<p>Verify Booking ID</p>
+<form action="#" data-th-action="@{/verify-bookingId}" data-th-object="${booking}" method="post">
+  <p>Booking ID: <input type="text" name="bookingId" /></p>
+  <!--  <p>QR Code: <input type="text" th:field="*{smsPin}" name="test123" /></p>-->
+  <button type="submit" name="action" value="receptionist">Verify</button>
+</form>
+
+</body>
+</html>

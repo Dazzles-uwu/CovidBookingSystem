@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+  <title tiles:fragment="title">Messages : Create</title>
+</head>
+<body>
+
+<div th:if="${revertBooking == 'true'}">
+  <h1> Please confirm if you would like to Revert Booking to:</h1>
+
+
+
+  <form action="#" data-th-action="@{/book/revert}" data-th-object="${booking}" method="post">
+    <p><input type="hidden" th:field="*{bookingId}"/></p>
+    <p><input type="hidden" th:field="*{status}"/></p>
+    <p><input type="hidden" th:field="*{customerId}"/></p>
+    <p><input type="hidden" th:field="*{startTime}"/></p>
+
+
+    <p>
+      <select name="revertOption">
+        <option th:value="'N'" th:text="No"></option>
+        <option th:value="'Y'" th:text="Yes"></option>
+      </select>
+      <button type="submit" name="action" value="cancel">Submit</button>
+    </p>
+
+  </form>
+
+  <form action="#" data-th-action="@{/validUser}"  method="get">
+    <button type="submit" name="action" value="">Go Back</button>
+  </form>
+
+  <div th:if="${hasReversedSuccessfully == 'true'}">
+    Booking was reverted Successfully
+  </div>
+
+  <div th:if="${hasReversedSuccessfully == 'false'}" >
+    <p>Was unable to revert book</p>
+
+  </div>
+
+</div>
+
+
+</body>
+</html>

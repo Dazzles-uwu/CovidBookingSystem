@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+  <title tiles:fragment="title">Messages : Create</title>
+</head>
+<body>
+<div tiles:fragment="content">
+
+
+</div>
+
+<div th:if="${user.isCustomer()}" th:insert="Users/customer.html">
+
+
+</div>
+<div th:if="${user.isHealthcareWorker()}" th:insert="Users/healthCareWorker.html">
+
+</div>
+<div th:if="${user.isReceptionist()}" th:insert="Users/receptionist.html">
+
+</div>
+
+<div th:if="${user.isReceptionist()} or ${user.isCustomer()} ">
+
+  <p>Verify Patient's Pin</p>
+  <form action="#" data-th-action="@{/verify-pin}" data-th-object="${booking}" method="post">
+    <p>SMS PIN: <input type="text" th:field="*{smsPin}" /></p>
+    <button type="submit" name="action" value="receptionist">Verify</button>
+  </form>
+
+  <div th:if="${checkBookingStatus}" >
+    <p th:text="${bookingStatus}"/>
+    <p th:if="${bookingStatus != 'PIN NOT VALID'}" th:text="'Patient Start time ' + ${patientBookingTime}"/>
+
+    <div th:if="${!user.isCustomer()} and ${isInitiatedStatus}">
+      <hr>
+      <h1> Modify the booking</h1>
+      <hr>
+
+      <div th:insert="Booking/bookingModified.html"></div>
+
+    </div>
+  </div>
+
+  <div th:if=" ${checkBookingStatus != null} and ${!checkBookingStatus}" >
+    <p Could not find any  with that id/>
+    Could not find Booking with that Booking ID
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+  <title tiles:fragment="title">Messages : Create</title>
+</head>
+<body>
+<p>Offsite Booking </p>
+<!--<p th:text="'Test site location: ' + ${onSiteLocation.name}"/>-->
+<p> Booking for off-site testing:</p>
+<form action="#" data-th-action="@{/book/offsite}" data-th-object="${booking}" method="post">
+  <p>Customer/Patient ID: <input type="text" th:field="*{customerId}"/></p>
+  <p> Collect RAT KITS:
+
+    <select class="form-control" id="dropDownList" name="collectKitOptions">
+
+      <option value="0">Possess a KIT already</option>
+      <option value="0">Getting it elsewhere </option>
+      <option th:each="option : ${testSiteOptions}" th:value="${option.getId()}" th:text="${option.getName()}"></option>
+    </select>
+
+  </p>
+
+
+  <label>Date Time (Available 8AM-6PM) : </label><input type="datetime-local" th:field="*{startTime}"/>
+<!--  <p>Booked successfully, sms pin has been sent.</p>-->
+  <p>Notes: <input type="text" th:field="*{notes}" /></p>
+  <button type="submit" name="action" value="customer">Book</button>
+</form>
+
+
+<form action="#" data-th-action="@{/validUser}"  method="get">
+  <button type="submit" name="action" value="">Go Back</button>
+</form>
+
+<div th:if="${hasBookedSuccessfully == 'true'}" >
+  <p>Booked successfully, QR and URL codes have also been generated and sent to email and mobile.</p>
+
+</div>
+
+<div th:if="${hasBookedSuccessfully == 'false'}" >
+  <p>Unable to book, please try again</p>
+
+</div>
+
+
+
+
+</body>
+</html>

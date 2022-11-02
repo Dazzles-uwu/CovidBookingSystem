@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+  <title tiles:fragment="title">Messages : Create</title>
+</head>
+<body>
+
+<div th:if="${cancelBooking == 'true'}">
+  <h1> Please confirm if you would like to delete booking:</h1>
+  <p
+      th:text="'Booking ID: ' + ${{booking.bookingId}}">
+  </p>
+
+
+  <form action="#" data-th-action="@{/book/cancel}" data-th-object="${booking}" method="post">
+    <p><input type="hidden" th:field="*{bookingId}"/></p>
+
+
+    <p>
+      <select name="cancelOption">
+        <option th:value="'N'" th:text="No"></option>
+        <option th:value="'Y'" th:text="Yes"></option>
+      </select>
+      <button type="submit" name="action" value="cancel">Submit</button>
+    </p>
+
+  </form>
+
+  <form action="#" data-th-action="@{/validUser}"  method="get">
+    <button type="submit" name="action" value="">Go Back</button>
+  </form>
+
+  <div th:if="${hasCancelledSuccessfully == 'true'}">
+    Booking was cancelled Successfully
+  </div>
+
+  <div th:if="${hasCancelledSuccessfully == 'false'}" >
+    <p>Was unable to book</p>
+
+  </div>
+
+</div>
+
+
+</body>
+</html>

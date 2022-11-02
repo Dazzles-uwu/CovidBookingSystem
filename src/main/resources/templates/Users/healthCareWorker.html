@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+  <title tiles:fragment="title">Messages : Create</title>
+</head>
+<body>
+
+<div tiles:fragment="content">
+  <form action="#" th:action="@{/interviewformanswers}" th:object="${interviewFormAnswers}" method="post">
+    <strong>Do you have COVID Symptoms?</strong>
+    <div class="form-check form-check-inline">
+      <input type="radio" th:field="*{symptomatic}" id="option1" value="yes">
+      <label for="option1">YES</label>
+      <input type="radio" th:field="*{symptomatic}" id="option2" value="no">
+      <label for="option2">NO</label>
+    </div>
+    <strong>Are you a close contact?</strong>
+    <div class="form-check form-check-inline">
+      <input type="radio" th:field="*{closeContact}" id="option3" value="yes">
+      <label for="option3">YES</label>
+      <input type="radio" th:field="*{closeContact}" id="option4" value="no" name="q2">
+      <label for="option3">NO</label>
+    </div>
+    <strong>Have you been travelling out of state or the country in the last 2 weeks?</strong>
+    <div class="form-check form-check-inline">
+      <input type="radio" th:field="*{travelled}" id="option5" value="yes" name="q3">
+      <label for="option3">YES</label>
+      <input type="radio" th:field="*{travelled}" id="option6" value="no" name="q3">
+      <label for="option3">NO</label>
+    </div>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+  </form>
+</div>
+</body>
+</html>

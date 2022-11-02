@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Homepage</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+        crossorigin="anonymous">
+</head>
+<body>
+
+<form action="#" th:action="@{/login}" th:object="${user}" method="post">
+  <p>Username: <input type="text" th:field="*{id}"/></p>
+  <p>Password: <input type="text" th:field="*{password}"/></p>
+  <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+
+<h1>Testing Sites</h1>
+<h2>Please Login to Book</h2>
+
+<form action="#" th:action="@{/filter/test-sites}" th:object="${testSiteFilter}" method="post">
+  <div style="display: flex; gap: 0.3rem; align-items: flex-start">
+    <p style="margin-top:0">Suburb Name: <input type="text" th:field="*{SuburbName}"/></p>
+    <label for="facilityType">Choose a facilityType:</label>
+
+    <select id="facilityType" multiple="multiple" size="5" th:field="*{facilityType}">
+      <option th:each="enumValue : ${T(com.fit3077.covidbookingsystem.testsite.FacilityType).values()}"
+              th:value="${enumValue}"
+              th:text="${enumValue.displayName}"
+      >
+      </option>
+    </select>
+
+
+    <p><input type="submit" value="Filter" name="action"/></p>
+    <p><input type="submit" value="Clear" name="action"/></p>
+
+
+  </div>
+</form>
+
+
+<div th:insert="TestSite/testSiteTable.html"></div>
+
+</body>
+
+
+</html>

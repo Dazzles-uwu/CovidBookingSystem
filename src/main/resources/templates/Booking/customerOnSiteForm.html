@@ -1,0 +1,44 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tiles="http://www.thymeleaf.org">
+<head>
+  <title tiles:fragment="title">Messages : Create</title>
+</head>
+<body>
+<div th:if="${bookingModify != 'true' && cancelBooking != 'true' && revertBooking != 'true' && deleteBooking != 'true'}">
+  <p>Onsite Booking </p>
+  <p th:text="'Test site location: ' + ${onSiteLocation.name}"/>
+  <p> Booking for in-person testing:</p>
+  <form action="#" data-th-action="@{/book/onsite}" data-th-object="${booking}" method="post">
+    <p>Customer/Patient ID: <input type="text" th:field="*{customerId}"/></p>
+    <p th:text="'Test site ID: ' + ${onSiteLocation.id}"/>
+    <label>Date Time: </label><input type="datetime-local" th:field="*{startTime}"/>
+    <p>Notes: <input type="text" th:field="*{notes}" /></p>
+    <button type="submit" name="action" value="customer">Book</button>
+  </form>
+
+
+  <form action="#" data-th-action="@{/validUser}"  method="get">
+    <button type="submit" name="action" value="">Go Back</button>
+  </form>
+
+  <div th:if="${hasBookedSuccessfully == 'true'}" >
+    <p>Booked successfully, sms pin has been sent.</p>
+
+  </div>
+
+  <div th:if="${hasBookedSuccessfully == 'false'}" >
+    <p>Unable to book, please try again</p>
+
+  </div>
+
+</div>
+
+<div th:if="${bookingModify == 'true'}" th:insert="Booking/bookingModified.html"></div>
+
+<div th:if="${cancelBooking == 'true'}" th:insert="Booking/cancelBooking.html"></div>
+
+<div th:if="${revertBooking == 'true'}" th:insert="Booking/revertBooking.html"></div>
+
+<div th:if="${deleteBooking == 'true'}" th:insert="Booking/deleteBooking.html"></div>
+
+</body>
+</html>

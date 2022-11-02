@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Covid Test Page</h2>
+    <form action="#" th:action="@{/covidtest}" th:object="${covidTest}" method="post">
+        <p>Recommended Test Type: </p>
+        <p th:text="${covidTest.getType()}"></p>
+        <br>
+        <br>
+        <p>Change Test Type: </p>
+        <select th:field="*{type}">
+            <option th:value="'PCR'" th:text="PCR"></option>
+            <option th:value="'RAT'" th:text="RAT"></option>
+        </select>
+        <br>
+        <p>Input patient ID (MANDATORY): <input type="text" th:field="*{patientId}" /></p>
+        <p>Input administerer ID: </p> <p th:text="${user.getId()}"></p>
+        <p>Input booking ID (NOT MANDATORY): <input type="text" th:field="*{bookingId}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
+    <div th:if="${hasBookedSuccessfully == 'false'}" >
+        <p>Unable to create COVID test, please try again</p>
+
+    </div>
+</body>
+</html>
